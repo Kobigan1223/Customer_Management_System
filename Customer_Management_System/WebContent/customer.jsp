@@ -1,68 +1,46 @@
+<%@page import="com.Customer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<%@page import="model.Customer" %>
-<%
-
-if (request.getParameter("customerPassword") != null)
-{
-	if (request.getParameter("customerPassword") != null)
-	 {
-	 Customer itemObj = new Customer();
-	 String stsMsg = itemObj.insertcustomerdetails(request.getParameter("customerPassword"),
-	 request.getParameter("customerName"),
-	 request.getParameter("customerPhone"),
-	 request.getParameter("customerEmail"));
-	 session.setAttribute("statusMsg", stsMsg);
-	 } 
-}
-
-//Delete item----------------------------------
-if (request.getParameter("customerID") != null)
-{
-	Customer itemObj = new Customer();
-String stsMsg = itemObj.deleteItem(request.getParameter("customerID"));
-session.setAttribute("statusMsg", stsMsg);
-} 
-
-%>
-
 <html>
 <head>
-<link rel="stylesheet" href="views/bootstrap.min.css">
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="View/bootstrap.min.css">
-
-<title>customer Management</title>
+<title>Customer</title>
+<link rel="stylesheet" href="Views/bootstrap.min.css">
+<script src="Components/jquery-3.2.1.min.js"></script>
+<script src="Components/Customer.js"></script>
 </head>
-
-<body>
-
-<h1> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;customer Management</h1>
-<form method="post" action="customer.jsp">
-<div class="container">
- <div class="row">
- <div class="col">
-
-
- customer Name: <input name="customerName" type="text"  class="form-control"><br>
- customer Phone: <input name="customerPhone" type="text"  class="form-control"><br>
- customer Email: <input name="customerEmail" type="text"  class="form-control"><br>
-  customer Password: <input name="customerPassword" type="password"  class="form-control"><br>
- <input name="btnSubmit" type="submit" value="Save"class="btn btn-primary"><br>
-
- </div>
- </div>
-</div>
+<body> 
+<div class="container"><div class="row"><div class="col-6"> 
+<h1>Customer</h1>
+<form id="formCus" name="formCus">
+ Wiring Method: 
+ <input id="wiringMethod" name="wiringMethod" type="text" 
+ class="form-control form-control-sm">
+ <br> User Name: 
+ <input id="fullName" name="fullName" type="text" 
+ class="form-control form-control-sm">
+ <br> Phone Number: 
+ <input id="phoneNo" name="phoneNo" type="text" 
+ class="form-control form-control-sm">
+ <br> ElectricID: 
+ <input id="electricID" name="electricID" type="text" 
+ class="form-control form-control-sm">
+ <br>
+ <input id="btnSave" name="btnSave" type="button" value="Save" 
+ class="btn btn-primary">
+ <input type="hidden" id="hidPIDSave" 
+ name="hidPIDSave" value="">
 </form>
-<div class="alert alert-success">
- <% out.print(session.getAttribute("statusMsg"));%>
-</div>
+<div id="alertSuccess" class="alert alert-success"></div>
+<div id="alertError" class="alert alert-danger"></div>
 <br>
-<%
-Customer itemObj = new Customer();
- out.print(itemObj.readItems());
-%>
-
+<div id="divCustomerGrid">
+	<%
+	Customer customerObj = new Customer(); 
+	 		out.print(customerObj.readCone());
+	%>
+</div>
+</div> </div> </div> 
 </body>
 </html>
